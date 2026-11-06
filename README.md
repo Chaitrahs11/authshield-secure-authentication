@@ -69,42 +69,37 @@ The following screenshots demonstrate the main authentication workflows implemen
 
 ### 1. User Registration
 
-![alt text](docs/snapshots/registration/Registering_account.png)
+![Registration](docs/snapshots/registration/Registering_account.png)
 
 Shows the registration page where a new user can enter their account details.
 
 ### 2. Email OTP Verification
 
-![alt text](docs/snapshots/email-verification/otp-verified.png)
+![Email Verification](docs/snapshots/email-verification/otp-verified.png)
 
 Demonstrates email verification using the OTP captured in the Mailtrap Sandbox.
 
 ### 3. Login
 
-![Login Page](docs/screenshots/03-login/login-page.png)
+![Login Page](docs/snapshots/login/login-credentials-entered.png)
 
 Shows the login page where users enter their registered email and password.
 
-### 3. Email OTP Verification
-
-![Email Verification](docs/screenshots/02-email-verification/email-verification.png)
-
-Demonstrates email verification using the OTP captured in the Mailtrap Sandbox.
 
 ### 4. Successful Login
 
-![Login Success](docs/screenshots/03-login/login-success.png)
+![Login Success](docs/snapshots/login/login_success.png)
 
 Shows the successful authentication response after valid login credentials are submitted.
 
 ### 5. Forgot Password
 
-![Forgot Password](docs/screenshots/04-forgot-password/forgot-password.png)
+![Forgot Password](docs/snapshots/forgot-password/Reset_password_code_sent.png)
 
 Shows the password recovery process using email OTP verification.
 
 ### 6. Password Reset
 
-![Password Reset](docs/screenshots/04-forgot-password/password-reset-success.png)
+![Password Reset](docs/snapshots/forgot-password/password_reset_success.png)
 
 Demonstrates successful password reset after OTP verification.
