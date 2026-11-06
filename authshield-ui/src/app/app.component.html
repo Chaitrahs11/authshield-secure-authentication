@@ -1,0 +1,144 @@
+<main class="auth-shell" [class.dashboard-mode]="view === 'dashboard'">
+  <aside class="brand-panel">
+    
+
+    <div class="brand-copy">
+      <span class="eyebrow"><span class="status-dot"></span> YOUR ACCOUNT, PROTECTED</span>
+      <h1>Security that<br />starts with <em>you.</em></h1>
+      <p>One secure place to access your account, verify your identity, and stay in control.</p>
+    </div>
+
+  </aside>
+
+  <section class="form-panel" aria-live="polite">
+    <div class="form-topline">
+      <span>AUTHSHIELD <span class="slash">/</span> SECURE ACCESS</span>
+      <span class="online"><i></i> SYSTEM ONLINE</span>
+    </div>
+
+    <div class="form-content">
+      @if (view === 'login') {
+        <div class="heading-block">
+          <span class="step-label">WELCOME BACK</span>
+          <h2>Sign in to your account</h2>
+          <p>Enter your credentials to continue securely.</p>
+        </div>
+        <form (ngSubmit)="login()" #loginForm="ngForm">
+          <label for="login-email">Email address</label>
+          <input id="login-email" name="email" type="email" [(ngModel)]="email" autocomplete="email" placeholder="you@example.com" required email />
+          <div class="label-row"><label for="login-password">Password</label><button class="text-action" type="button" (click)="show('forgot')">Forgot password?</button></div>
+          <input id="login-password" name="password" type="password" [(ngModel)]="password" autocomplete="current-password" placeholder="Enter your password" required />
+          <button class="primary-button" type="submit" [disabled]="busy || loginForm.invalid">
+            @if (busy) { <span class="spinner"></span> Signing in... } @else { Sign in <span aria-hidden="true">→</span> }
+          </button>
+        </form>
+        <p class="switch-prompt">New to AuthShield? <button class="text-action" type="button" (click)="show('register')">Create an account</button></p>
+      }
+
+      @if (view === 'register') {
+        <div class="heading-block">
+          <span class="step-label">GET STARTED</span>
+          <h2>Create your account</h2>
+          <p>We’ll send a verification code to your email.</p>
+        </div>
+        <form (ngSubmit)="register()" #registerForm="ngForm">
+          <label for="register-email">Email address</label>
+          <input id="register-email" name="email" type="email" [(ngModel)]="email" autocomplete="email" placeholder="you@example.com" required email />
+          <label for="register-password">Create password</label>
+          <input id="register-password" name="password" type="password" [(ngModel)]="password" autocomplete="new-password" placeholder="At least 12 characters" minlength="12" maxlength="72" required />
+          <p class="field-hint">Use at least 12 characters. Avoid reusing another password.</p>
+          <button class="primary-button" type="submit" [disabled]="busy || registerForm.invalid">
+            @if (busy) { <span class="spinner"></span> Creating account... } @else { Create account <span aria-hidden="true">→</span> }
+          </button>
+        </form>
+        <p class="switch-prompt">Already registered? <button class="text-action" type="button" (click)="show('login')">Sign in</button></p>
+      }
+
+      @if (view === 'verify') {
+        <div class="heading-block">
+          <span class="step-label">EMAIL VERIFICATION</span>
+          <h2>Check your inbox</h2>
+          <p>Enter the six-digit code sent to <strong>{{ email }}</strong>.</p>
+        </div>
+        <form (ngSubmit)="verifyEmail()" #verifyForm="ngForm">
+          <label for="verify-code">Verification code</label>
+          <input id="verify-code" class="code-input" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" [(ngModel)]="code" placeholder="000000" pattern="[0-9]{6}" maxlength="6" required />
+          <button class="primary-button" type="submit" [disabled]="busy || verifyForm.invalid">
+            @if (busy) { <span class="spinner"></span> Verifying... } @else { Verify email <span aria-hidden="true">→</span> }
+          </button>
+        </form>
+        <p class="switch-prompt">Code not received? <button class="text-action" type="button" [disabled]="busy" (click)="resendVerification()">Resend code</button></p>
+      }
+
+      @if (view === 'forgot') {
+        <div class="heading-block">
+          <span class="step-label">ACCOUNT RECOVERY</span>
+          <h2>Reset your password</h2>
+          <p>Enter your account email. If eligible, we’ll send a reset code.</p>
+        </div>
+        <form (ngSubmit)="requestReset()" #forgotForm="ngForm">
+          <label for="forgot-email">Email address</label>
+          <input id="forgot-email" name="email" type="email" [(ngModel)]="email" autocomplete="email" placeholder="you@example.com" required email />
+          <button class="primary-button" type="submit" [disabled]="busy || forgotForm.invalid">
+            @if (busy) { <span class="spinner"></span> Sending... } @else { Send reset code <span aria-hidden="true">→</span> }
+          </button>
+        </form>
+        <p class="switch-prompt"><button class="text-action" type="button" (click)="show('login')">← Back to sign in</button></p>
+      }
+
+      @if (view === 'reset') {
+        <div class="heading-block">
+          <span class="step-label">CHOOSE A NEW PASSWORD</span>
+          <h2>Make it a new one</h2>
+          <p>Enter the reset code sent to <strong>{{ email }}</strong> and choose a new password.</p>
+        </div>
+        <form (ngSubmit)="resetPassword()" #resetForm="ngForm">
+          <label for="reset-code">Reset code</label>
+          <input id="reset-code" class="code-input" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" [(ngModel)]="code" placeholder="000000" pattern="[0-9]{6}" maxlength="6" required />
+          <label for="new-password">New password</label>
+          <input id="new-password" name="newPassword" type="password" [(ngModel)]="newPassword" autocomplete="new-password" placeholder="At least 12 characters" minlength="12" maxlength="72" required />
+          <button class="primary-button" type="submit" [disabled]="busy || resetForm.invalid">
+            @if (busy) { <span class="spinner"></span> Updating... } @else { Update password <span aria-hidden="true">→</span> }
+          </button>
+        </form>
+      }
+
+      @if (view === 'dashboard' && dashboard; as overview) {
+        <div class="heading-block">
+          <span class="step-label">AUTHENTICATED · PROTECTED API</span>
+          <h2>Welcome back!</h2>
+          <p>Your security overview, returned by the authenticated dashboard endpoint.</p>
+        </div>
+        <div class="dashboard-grid">
+          <div class="dashboard-stat"><span>ACCOUNT STATUS</span><strong>{{ overview.accountStatus }}</strong></div>
+          <div class="dashboard-stat"><span>AUTHENTICATION</span><strong>{{ overview.authenticationMethod }}</strong></div>
+          <div class="dashboard-stat"><span>EMAIL VERIFICATION</span><strong>{{ overview.emailVerified ? 'Completed' : 'Pending' }}</strong></div>
+          <div class="dashboard-stat"><span>SECURITY STATUS</span><strong class="protected-value">{{ overview.securityStatus }}</strong></div>
+        </div>
+
+        <section class="dashboard-section" aria-labelledby="account-heading">
+          <div class="section-heading"><h3 id="account-heading">Account information</h3><span class="verified-mark" aria-label="Verified">✓</span></div>
+          <div class="account-details">
+            <div><span>Email</span><strong>{{ overview.email }}</strong></div>
+            <div><span>Account created</span><strong>{{ overview.accountCreatedAt | date:'mediumDate' }}</strong></div>
+          </div>
+        </section>
+
+        <section class="dashboard-section activity-section" aria-labelledby="activity-heading">
+          <h3 id="activity-heading">Security protections</h3>
+          <ul class="feature-list">
+            @for (feature of overview.securityFeatures; track feature) {
+              <li><span class="activity-check">✓</span>{{ feature }}</li>
+            }
+          </ul>
+          <p class="dashboard-message">{{ overview.message }}</p>
+        </section>
+        <button class="primary-button" type="button" (click)="logout()">Sign out <span aria-hidden="true">↗</span></button>
+      }
+
+      @if (notice) { <div class="notice" [class.notice-error]="isError" role="status">{{ notice }}</div> }
+    </div>
+
+    <footer class="form-footer"><span>© 2026 AuthShield</span><span>SECURE ACCESS <b>·</b> ENCRYPTED</span></footer>
+  </section>
+</main>
