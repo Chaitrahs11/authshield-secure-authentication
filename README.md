@@ -60,6 +60,8 @@ Flyway creates the database tables when the backend starts. Mailtrap Sandbox cap
 
 - `authShield/` — Spring Boot backend
 - `authshield-ui/` — Angular frontend
+- `docs/` — Architecture documentation 
+- [System Architecture](docs/ARCHITECTURE.md)
 
 ## Application Screenshots & Test Evidence
 
