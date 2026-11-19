@@ -38,7 +38,7 @@ jobs:
         working-directory: authshield-ui
 
       - name: Run tests
-        run: npm test -- --watch=false
+        run: npm test -- --watch=false --browsers=ChromeHeadless
         working-directory: authshield-ui
 
       - name: Login to Docker Hub
@@ -53,6 +53,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: ./authshield-ui
-          file: ./authshield-ui/Dockerfile
+          file: ./authshield-ui/dockerfile
           push: true
           tags: chaitrahs2003/authshield-fe:latest
