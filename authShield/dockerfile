@@ -1,0 +1,11 @@
+# Java 21 runtime image
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+
+# Copy the already-built Spring Boot JAR
+COPY target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -1,0 +1,52 @@
+
+name: AuthShield Backend CI
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'authShield/**'
+      - '.github/workflows/**'
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'authShield/**'
+      - '.github/workflows/**'
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Build and test Spring Boot application
+        run: mvn clean package
+        working-directory: authShield
+
+      - name: Login to Docker Hub
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push backend Docker image
+        if: github.event_name == 'push'
+        uses: docker/build-push-action@v6
+        with:
+          context: ./authShield
+          file: ./authShield/Dockerfile
+          push: true
+          tags: chaitrahs2003/authshield-be:latest

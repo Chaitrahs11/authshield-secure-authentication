@@ -1,0 +1,15 @@
+services:
+
+  backend:
+    image: chaitrahs2003/authshield-be:latest
+    container_name: authshield-backend
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:postgresql://host.docker.internal:5432/authShield_db
+
+  frontend:
+    image: chaitrahs2003/authshield-fe:latest
+    container_name: authshield-frontend
+    ports:
+      - "4200:80"
